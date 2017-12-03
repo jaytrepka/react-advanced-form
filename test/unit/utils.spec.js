@@ -1,8 +1,30 @@
 import { expect } from 'chai';
 import { fromJS, Map } from 'immutable';
-import { fieldUtils } from '../../src/utils';
+import { ensureMask, fieldUtils } from '../../src/utils';
 
 describe('Utils', () => {
+  /**
+   * Common
+   */
+  describe('Common', () => {
+    it ('ensureMask', () => {
+      /* String and mask equal length */
+      expect(ensureMask('abcdefg', '## ### ##')).to.equal('ab cde fg');
+
+      /* String shorter than the mask */
+      expect(ensureMask('1234567890', '#### #### #### ####')).to.equal('1234 5678 90');
+
+      /* String longer than the mask */
+      expect(ensureMask('1234567890', '## ## ##')).to.equal('12 34 567890');
+
+      /* String with non-linear character indexes */
+      expect(ensureMask('12 34567 89', '### ### ###')).to.equal('123 456 789');
+    });
+  });
+
+  /**
+   * Field utils
+   */
   describe('Field utils', () => {
     /**
      * getDynamicProps
