@@ -19,6 +19,9 @@ describe('Utils', () => {
 
       /* String with non-linear character indexes */
       expect(ensureMask('12 34567 89', '### ### ###')).to.equal('123 456 789');
+
+      /* Mask with pre-defined characters */
+      expect(ensureMask('1 234 5 6 789', '+(###) ### ### ###')).to.equal('+(123) 456 789');
     });
   });
 
